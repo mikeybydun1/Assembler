@@ -1,0 +1,14 @@
+MAIN:	mov #0, r0
+mov DATA1.1, r1
+mov STRUCT.1, r2
+LOOP:	cmp r1
+bne UPDATE
+jmm END
+UPDATE:	inc r1
+inc r0
+jmp LOOP
+END:	stop
+DATA1: 	.data 2,7,-5
+DATA2:	.data 10,8,1
+STR:	.string “AjBc”
+STRUCT:	.struct 8,”CkP”,-3
