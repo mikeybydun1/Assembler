@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "utilities.h": "c",
+        "firstride.h": "c",
+        "datautils.h": "c",
+        "stdio.h": "c",
+        "symboltable.h": "c",
+        "preassembler.h": "c",
+        "secondride.h": "c",
+        "utilride2.h": "c",
+        "outputfiles.h": "c"
+    }
+}
