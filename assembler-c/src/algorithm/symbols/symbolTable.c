@@ -2,7 +2,7 @@
 In this file: The symbol table for all the labels, and also some functions to handle with the symbolTable,
     like check if a label in the symbol table, check if a string is a label and more.
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdint.h>
@@ -23,9 +23,12 @@ ID: 215356981 */
 
 
 
-/*The function isInLabelTable get a pointer to a char (string)
-and returns true if the string is a name of a label with exists
-int the label table. else - return false.*/
+/**
+ * Checks if a given string is present in the label table.
+ *
+ * @param s1 The string to search for in the label table.
+ * @return True if the string is found in the label table, false otherwise.
+ */
 bool isInLabelTabel(char *s1) {
     bool flag = false;
     for(int i = 0; i < MAX_LABEL_AMOUNT; i++) {
@@ -39,9 +42,12 @@ bool isInLabelTabel(char *s1) {
 /*Gloval string to help functions returns strings*/ 
 char labelsNames[MAX_LABEL_CHARS] = "";
 
-/*The function inLabel gets a pointer to a char (or string)
-and if the string isn't a label (there is not ':' in the string)
-return '!' string. else - return the label's name.*/
+/**
+ * Checks if a given string represents a label.
+ *
+ * @param s1 The string to check.
+ * @return Returns the label name if the string is a label, or "!" if it is not a label.
+ */
 char* isLabel(char *s1) {
     for(int i = 0; i < MAX_LABEL_CHARS; i++) {
         labelsNames[i] = ' ';
@@ -64,8 +70,12 @@ char* isLabel(char *s1) {
     }
 }
 
-/*The function labelType() gets a pointer to a sentence (string), and
-return the label type. Data - return 0, extern - return 2, entry - 3 and code - 1.*/
+/**
+ * Determines the type of a label based on the given string.
+ *
+ * @param s1 The string to check.
+ * @return Returns the label type based on the string.
+ */
 int labelType(char *s1) {
     if(is_substring(".data",s1) || is_substring(".struct",s1)
         || is_substring(".string",s1)) 
@@ -84,9 +94,12 @@ int labelType(char *s1) {
     }
 }
 
-/*indexInLabelTable(): The function gets a pointer to a string and
-return the index of this string in label table (if it is a real label name).
-If the string isn't in the label table - return -1.*/
+/**
+ * Finds the index of a label in the label table based on its name.
+ *
+ * @param s The name of the label.
+ * @return Returns the index of the label in the label table, or NOT_IN_LABEL_TABLE if not found.
+ */
 int indexInLabelTable(char *s) {
     int index = NOT_IN_LABEL_TABLE;
     for(int i = 0; i < MAX_LABEL_AMOUNT; i++) {

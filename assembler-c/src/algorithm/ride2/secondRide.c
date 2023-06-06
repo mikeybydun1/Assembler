@@ -5,7 +5,7 @@ There are 2 main importent functions
 1) TranslateLineToBin(): gets a pointer to a line and translate him to bin code
 2) TranslateFileToBinary(): gets a pointer to a .am file and translate him to binary code
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdint.h>
@@ -43,6 +43,12 @@ int line_counter = FIRST_LINE_VALUE;
 bool is_errors = false; // Flag for check if there is errors in the line
 
 
+/**
+ * @brief Resets the code_arr and data_arr arrays.
+ *
+ * This function resets the code_arr and data_arr arrays by setting all elements to the string "0000000000".
+ * This effectively clears the contents of the arrays.
+ */
 void reasetArr() {
     for(int i = 0; i < MAX_BYTES; i++) {
         strcpy(code_arr[i],"0000000000");
@@ -50,9 +56,16 @@ void reasetArr() {
     }
 }
 
-/* translateLineToBinary(): This function gets a pointer to a line and
-translate code the line to 10 binary chars. 
-The function knows how to translate commands, .data, .string and .struct */
+
+/**
+ * @brief Translates a line of assembly code into binary and stores it in the code_arr or data_arr arrays.
+ *
+ * This function translates a line of assembly code into binary and stores it in the appropriate position
+ * in the code_arr or data_arr arrays based on the label type. It handles different types of instructions
+ * such as commands, data declarations, string declarations, and struct declarations.
+ *
+ * @param line The line of assembly code to be translated.
+ */
 void translateLineToBinary(char *line) {
 
     //int length = sentenceLength(line); // The length in bytes of the sentence
@@ -768,9 +781,13 @@ void translateLineToBinary(char *line) {
     
 }
 
-/* translateFileToBin(): This fuction gets a name of file in .am 
-and knows how to translate every line in file to binary and store the binary code
-in code_arr and data_arr. */
+
+/**
+ * Translates an assembly file into binary code.
+ *
+ * @param file_name The name of the assembly file to translate.
+ * @return Returns true if there was an error during translation, false otherwise.
+ */
 bool translateFileToBin(char *file_name) {
     
     FILE *fp = fopen(file_name,"r"); // Pointer to the file
@@ -874,10 +891,14 @@ bool translateFileToBin(char *file_name) {
     }
 } // End of function 
 
-/* negativNumberToBin(): This function gets a pointer to string that represent a number, flag
-for check if the number should store in the data or code, and offset.
-The function translate the negativ number and store him in the right byte
-according to the compration to 2 method. */
+
+/**
+ * Converts a negative number to binary representation.
+ *
+ * @param num The negative number to convert.
+ * @param isInData Specifies whether the number is in the data section.
+ * @param offset The offset in the array where the binary representation will be stored.
+ */
 void negativNumberToBin(char *num, bool isInData, int offset) {
 
     char num_copy[20];

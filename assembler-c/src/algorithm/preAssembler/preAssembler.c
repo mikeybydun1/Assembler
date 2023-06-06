@@ -2,7 +2,7 @@
 In this file: remove all the macroes in the file and replacing 
 thier commands in the right place in the file.
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdio.h>
@@ -34,9 +34,18 @@ struct macro
 
 struct macro macroTable[MAX_MACRO_AMOUNT]; // Array for store all the macros.
 
-/*The main function in this file: The function removeMacro
-gets a sorce and destenation files pointers and remove from the sorce
-file all the macro and replace them in thier place in the other file.*/
+/**
+ * @brief Removes macros from a file and creates a new file without macros.
+ *
+ * This function reads the contents of the file specified by fileWithMacro and removes any macros
+ * present in the file. It creates a new file specified by fileWithoutMacro and writes the modified
+ * contents without macros into the new file. The function also updates the macroTable with the
+ * macro definitions encountered in the file.
+ *
+ * @param fileWithMacro The name of the file containing macros.
+ * @param fileWithoutMacro The name of the file to be created without macros.
+ * @return None.
+ */
 void removeMacro(char *fileWithMacro, char *fileWithoutMacro) {
 
     FILE *fp = fopen(fileWithMacro,"r");
@@ -116,10 +125,15 @@ void removeMacro(char *fileWithMacro, char *fileWithoutMacro) {
     fclose(fp2); // close the second file
 }
 
-/*The function isInMacroTable() gets a pointer to a string
-and check if the string (a macro name) is in the macro table.
-If the macro doesn't exist in the macro table - return -1,
-else - return the place of the macro in the macro table.*/
+/**
+ * @brief Checks if a string is present in the macroTable.
+ *
+ * This function searches for the given string in the macroTable and returns the index of the
+ * corresponding macro if found. If the string is not found in the macroTable, it returns NO_MACROS.
+ *
+ * @param s The string to search for in the macroTable.
+ * @return The index of the macro in the macroTable if found, or NO_MACROS if not found.
+ */
 int isInMacroTable(char *s) {
     int num = NO_MACROS;
     for(int i = 0; i < MAX_MACRO_AMOUNT; i++) {

@@ -1,6 +1,6 @@
 /* [mmn 14 : utilities.c]:
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 int decimalToBinary(int num);

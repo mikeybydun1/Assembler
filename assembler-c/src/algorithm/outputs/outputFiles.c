@@ -1,7 +1,7 @@
 /* [outputFiles.c]:
 In this file: 2 functions for creating object, extern and entry files.
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdint.h>
@@ -28,7 +28,15 @@ ID: 215356981 */
 #define START_CODE_INDEX 100
 #define DEFULT_COUNTER_VALUE 0
 
-
+/**
+ * @brief Creates a binary file containing the source assembly code, code segment, and data segment.
+ *
+ * This function generates a binary file based on the provided source assembly code and the code/data segments.
+ * It writes the contents of the source assembly code, code segment, and data segment into the binary file.
+ *
+ * @param file_name The name of the binary file to be created.
+ * @return None.
+ */
 void createBinaryFile(char *file_name) {
 
     FILE* fp = fopen(file_name,"w");
@@ -80,7 +88,16 @@ void createBinaryFile(char *file_name) {
     return;
 }
 
-/* createEntFile(): This function gets a file name and create .ent file*/
+/**
+ * @brief Creates an entry (.ent) file containing the entry labels and their corresponding values.
+ *
+ * This function checks if there are any entry labels in the label table and creates an entry file
+ * (specified by the file_name) that lists the entry labels and their corresponding values in base 32.
+ * Each entry label is written in the format "<label_name>   <base_32_value>".
+ *
+ * @param file_name The name of the entry file to be created.
+ * @return None.
+ */
 void createEntFile(char *file_name) {
 
     // Check if there is a entry label in the label table
@@ -157,8 +174,19 @@ void createEntFile(char *file_name) {
    
 }
 
-/* createObjectAndExtFile(): This function gets a 2 file name (object and external)
-and create the 2 files (base 32). */
+/**
+ * @brief Creates an object (.ob) file and an external (.ext) file based on the code and data segments.
+ *
+ * This function checks if there are any external labels in the label table and creates an object file
+ * (specified by file_name_ob) and an external file (specified by file_name_ext). The object file contains
+ * the code and data segments in base 32 format, while the external file lists the external labels and their
+ * corresponding addresses in base 32. The function also handles writing the amount of memory bytes in the
+ * code and data segments to the object file.
+ *
+ * @param file_name_ob The name of the object file to be created.
+ * @param file_name_ext The name of the external file to be created.
+ * @return None.
+ */
 void createObjectAndExtFile(char *file_name_ob, char *file_name_ext) {
 
     bool isExtLabel = false;
@@ -536,8 +564,14 @@ void createObjectAndExtFile(char *file_name_ob, char *file_name_ext) {
     
 }
 
-/* firstExtLabel(): This function returns the index of the first
-external label in the label table. */
+/**
+ * @brief Returns the index of the first external label in the label table.
+ *
+ * This function searches for the first external label in the label table and returns its index.
+ * It also updates the type of the found external label to -1, indicating that it has been processed.
+ *
+ * @return The index of the first external label, or -1 if no external labels are found.
+ */
 int firstExtLabel() {
     for(int i = 0; i < MAX_LABEL_AMOUNT; i++) {
         if(labelTable[i].type == EXTERNAL_LABEL_TYPE) {
@@ -548,6 +582,15 @@ int firstExtLabel() {
     return -1;
 }
 
+/**
+ * @brief Converts an integer to a string representation.
+ *
+ * This function converts the given integer to a string representation using the standard sprintf function.
+ *
+ * @param num The integer value to be converted.
+ * @param str The character array to store the resulting string.
+ * @return A pointer to the resulting string.
+ */
 char* my_itoa(int num, char *str)
 {
     if(str == NULL)

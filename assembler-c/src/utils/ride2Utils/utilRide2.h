@@ -1,6 +1,6 @@
 /* [mmn 14 : utilRide2.c]:
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 void binaryTo32Base(char *bin_num, char new_word[]); 

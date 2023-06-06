@@ -2,7 +2,7 @@
 In this file: function called debug that checks the file and
 print error like too much arguments, invalid addressing type...
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich
 ID: 215356981 */
 
 #include <stdint.h>
@@ -24,8 +24,15 @@ ID: 215356981 */
 // Global var for the label name
 char *label_name;
 
-/* debug(): This function checks the file and
-print error like too much arguments, invalid addressing type...*/
+/**
+ * @brief Checks the specified file for errors and prints error messages for various issues.
+ *
+ * This function reads the contents of the file and performs error checking on the file's contents,
+ * such as checking for too many arguments and invalid addressing types.
+ *
+ * @param file_name The name of the file to be checked.
+ * @return Returns true if no errors were found in the file, false otherwise.
+ */
 bool debug(char *file_name) {
     bool flag = true;
     FILE *fp = fopen(file_name, "r");

@@ -2,7 +2,7 @@
 In this file: many usefull functions like sentenceLength() 
 but more copmlicated then the functions in utilities.c
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdio.h>
@@ -20,8 +20,13 @@ ID: 215356981 */
 
 
 char checkString[CHECH_STRING_SIZE];
-/* sentenceLength(): The function gets a pointer to a sentence
-and return the length of the sentence in bytes.*/
+
+/**
+ * Calculates the length of a sentence in bytes based on its syntax.
+ *
+ * @param s1 The sentence to calculate the length of.
+ * @return Returns the length of the sentence in bytes.
+ */
 int sentenceLength(char *s1) {
   int L = 1;
   
@@ -133,8 +138,12 @@ int sentenceLength(char *s1) {
   }
 }
 
-/* argAmount(): The function gets a command name,
-and return the arg amount of the command.*/
+/**
+ * Determines the number of arguments for a given command.
+ *
+ * @param s1 The command name.
+ * @return Returns the number of arguments for the command. Returns -1 if the command is not recognized.
+ */
 int argAmount(char s1[]) {
     int arguments = -1;
 
@@ -160,8 +169,13 @@ int argAmount(char s1[]) {
     return arguments; // Return the arg amount
 }
 
-/* getAddressingType(): The funtion gets a pointer to string and return
-the addressing type of the string. register - 3, number - 0 and so on...*/
+/**
+ * Determines the addressing type of a given string.
+ *
+ * @param s1 The string to determine the addressing type.
+ * @return Returns the addressing type of the string. 3 for register type, 0 for number type,
+ *         2 for type with '.', and 1 for other types.
+ */
 int getAddressingType(char *s1) {
 
     if(strcmp(s1,"r1") == 0 || strcmp(s1,"r2") == 0 || strcmp(s1,"r3") == 0 
@@ -186,8 +200,13 @@ int getAddressingType(char *s1) {
     }
 }
 
-/* isAddressingTypeOk(): The function gets a command name and pointer to a string
-and return true if the addressing mode of the args are leagel, else - returns false. */
+/**
+ * Checks if the addressing mode of the arguments for a given command is legal.
+ *
+ * @param command The command name.
+ * @param sentence Pointer to the sentence containing the command and arguments.
+ * @return Returns true if the addressing mode of the arguments is legal, false otherwise.
+ */
 bool isAddressingTypeOk(char command[], char *sentence) {
     if(strcmp(command,"rts") == 0 || strcmp(command,"stop") == 0 || strcmp(command,"cmp") == 0 || strcmp(command,"prn") == 0) 
     { // The commands that the addressing type doesnt matter

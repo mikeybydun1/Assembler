@@ -2,7 +2,7 @@
 In this file: remove all the macroes in the file and replacing 
 thier commands in the right place in the file.
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 /*In this header file: short explanation of all the function*/

@@ -2,7 +2,7 @@
 In this file: Very importent function - ride1(). Going over the file,
     and add every label to the label table with the right values.llll
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdint.h>
@@ -26,6 +26,17 @@ ID: 215356981 */
 int IC = DEFULT_COUNTER_VALUE;
 int DC = DEFULT_COUNTER_VALUE;
 
+/**
+ * @brief Processes the source file to calculate IC and DC and update the labelTable.
+ *
+ * This function reads the source file specified by fileName and processes each line to calculate
+ * the instruction counter (IC), data counter (DC), and update the labelTable accordingly. It
+ * handles label declarations, data labels, code labels, and external labels. The function also
+ * prints error messages for duplicate labels and unrecognized labels.
+ *
+ * @param fileName The name of the source file to process.
+ * @return None.
+ */
 void ride1(char *fileName) {
     FILE *fp = fopen(fileName, "r");
 
@@ -135,8 +146,15 @@ void ride1(char *fileName) {
     
 } // end of function
 
-/* amountLinesInFile(): This function gets a pointer to a file name,
-and return the amount of lines in the file with the given.*/
+/**
+ * @brief Calculates the number of lines in a file.
+ *
+ * This function opens the specified file and counts the number of lines in it. It returns the
+ * total number of lines in the file.
+ *
+ * @param file_name The name of the file to count the lines in.
+ * @return The number of lines in the file.
+ */
 int amountLinesInFile(char *file_name) {
     FILE *fp = fopen(file_name,"r");
     int line_counter = 0;

@@ -2,7 +2,7 @@
 In this file: helpfull functions for secondRide.c that help
 to convert binary number to 32 base numbers.
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdio.h>
@@ -15,9 +15,12 @@ ID: 215356981 */
 #include "D:\Desktop\Assembler\assembler-c\src\utils\ride2Utils\utilRide2.h"
 #include "D:\Desktop\Assembler\assembler-c\src\utils\dataUtils\dataUtils.h"
 
-/* binaryTo32Base(): The main functio of this file.
-This function gets a pointer to string (with 5 binary chars) and a buffer,
-and put in the buffer 32 base chars. */
+/**
+ * binaryTo32Base(): Converts a binary number to 32 base numbers.
+ *
+ * @param bin_num The binary number as a string.
+ * @param new_word The buffer to store the 32 base characters.
+ */
 void binaryTo32Base(char *bin_num, char new_word[]) 
 {
     char low_word[] = "00000";
@@ -40,8 +43,12 @@ void binaryTo32Base(char *bin_num, char new_word[])
 
 }
 
-/* binaryToDecimal(): This function gets a pointer to a string (binary chars)
-and return the decimal number in int var. */
+/**
+ * binaryToDecimal(): Converts a binary number to decimal.
+ *
+ * @param string The binary number as a string.
+ * @return The decimal representation of the binary number.
+ */
 int binaryToDecimal(char *string) {
     int slen = strlen(string);
     int total = 0;
@@ -55,8 +62,12 @@ int binaryToDecimal(char *string) {
     return total;
 }
 
-/* decimalTo32Chars(): This function gets a number in decimal,
-return return a char that equals to that number in base 32. */
+/**
+ * decimalTo32Chars(): Converts a decimal number to a base 32 character.
+ *
+ * @param dec_num The decimal number.
+ * @return The base 32 character representation of the decimal number.
+ */
 char decimalTo32Chars(int dec_num) {
 
     if(dec_num == 0) {return '!';} if(dec_num == 1) {return '@';} if(dec_num == 2) {return '#';} if(dec_num == 3) {return '$';}

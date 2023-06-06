@@ -1,7 +1,7 @@
 /* [assembler.c]:
 In this file: The main function of the assembler project
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich
 ID: 215356981 */
 
 #include <stdint.h>
@@ -24,8 +24,13 @@ ID: 215356981 */
 #define LABEL_MAX_AMOUNT 100
 
 
-// The main function of the project: the function get a .am file names and
-// create 3 files - .ob, .ext and .ext file in base 32.
+/**
+ * main(): The main function of the assembler project.
+ *
+ * @param argc The number of command-line arguments.
+ * @param argv An array of command-line argument strings.
+ * @return The exit status of the program.
+ */
 int main(int argc, char* argv[]) {
     
     // The file names

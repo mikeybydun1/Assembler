@@ -2,7 +2,7 @@
 In this file: Super usefull and simple functions like function that check
 if one string is substring of the other, remove blank spaces and so more...
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 #include <stdio.h>
@@ -13,8 +13,12 @@ ID: 215356981 */
 #include "D:\Desktop\Assembler\assembler-c\src\utils\generalUtils\utilities.h"
 #include "../dataUtils/dataUtils.h"
 
-/* decimalToBinary(): The function get as an input decimal number and return
-the number in base 2 (binary)*/
+/**
+ * decimalToBinary(): Converts a decimal number to binary.
+ *
+ * @param num The decimal number to convert.
+ * @return The binary representation of the decimal number.
+ */
 int decimalToBinary(int num) {
     int bin = 0, rem = 0, place = 1;
     while(num) {
@@ -28,8 +32,12 @@ int decimalToBinary(int num) {
 }
 
 
-/* getCommandNumber(): The function get a command name and return the command number.
-If the command isn't in the commands list - return 16.*/
+/**
+ * getCommandNumber(): Gets a command name and returns the corresponding command number.
+ *
+ * @param command The command name.
+ * @return The command number. Returns 16 if the command is not in the commands list.
+ */
 int getCommandNumber(char command[]) {
     int number = 16;
     if(strcmp(command,"mov") == 0) {number = 0;}
@@ -52,8 +60,13 @@ int getCommandNumber(char command[]) {
     return number;
 }
 
-/* is_substring(): The function is_substring() gets a 2 pointers to strings and
-returns if the first string is a substring of the second.*/
+/**
+ * is_substring(): Checks if the first string is a substring of the second string.
+ *
+ * @param check The substring to check.
+ * @param string The string to check against.
+ * @return True if the first string is a substring of the second string, false otherwise.
+ */
 bool is_substring(char *check, char *string) {
   int slen = strlen(string);
   int clen = strlen(check);
@@ -74,8 +87,11 @@ bool is_substring(char *check, char *string) {
   return false;
 }
 
-/* removeSpaceFront(): The function get a pointer to a string,
-and delete all the blank spaces in the front of the string*/
+/**
+ * removeSpaceFront(): Removes leading blank spaces from a string.
+ *
+ * @param s The string to remove leading blank spaces from.
+ */
 void removeSpaceFront(char *s)
 {
   int count = 0;
@@ -93,8 +109,11 @@ void removeSpaceFront(char *s)
   }
 }
 
-/* removeSpaceTail(): The function get a pointer to a string,
-and delete all the blank spaces in the tail of the string*/
+/**
+ * removeSpaceTail(): Removes trailing blank spaces from a string.
+ *
+ * @param s The string to remove trailing blank spaces from.
+ */
 void removeSpaceTail(char *s)
 {
   int i = strlen(s) - 1;
@@ -113,7 +132,12 @@ char arg[50];
 char arg2[50];
 char arg3[50];
 
-/* getCommand(): The function get a pointer to a string and return the command name*/
+/**
+ * getCommand(): Extracts the command name from a string.
+ *
+ * @param s1 The string containing the command.
+ * @return The extracted command name.
+ */
 char* getCommand(char *s1) {
   removeSpaceFront(s1);
   command[0] = s1[0];
@@ -129,8 +153,12 @@ char* getCommand(char *s1) {
   return command;
 }
 
-/* getFirstArg(): The function gets a pointer to a string and return
-the first arg of the sentence.*/
+/**
+ * getFirstArg(): Extracts the first argument from a string.
+ *
+ * @param s1 The string containing the arguments.
+ * @return The first argument.
+ */
 char* getFirstArg(char *s1) {
   removeSpaceFront(s1);
   for(int i = 0; i < strlen(s1); i++) {
@@ -159,8 +187,12 @@ char* getFirstArg(char *s1) {
   }
 }
 
-/* getOnlyArg(): This function gets a pointer to a string and return
-the argument (when there is only 1 argument). */
+/**
+ * getOnlyArg(): Extracts the argument when there is only one argument.
+ *
+ * @param s1 The string containing the argument.
+ * @return The extracted argument.
+ */
 char* getOnlyArg(char *s1) {
   for(int i = 0; i < strlen(s1); i++) {
     arg3[i] = s1[i];
@@ -179,8 +211,12 @@ char* getOnlyArg(char *s1) {
   return arg3;
 }
 
-/* getSecondArg(): The function gets a pointer to a string and return
-the second arg of the sentence.*/
+/**
+ * getSecondArg(): Extracts the second argument from a string.
+ *
+ * @param s1 The string containing the arguments.
+ * @return The second argument.
+ */
 char* getSecondArg(char *s1) {
   int count = 0;
   while(s1[count] != ',') {
@@ -197,8 +233,12 @@ char* getSecondArg(char *s1) {
   return arg2;
 }
 
-/* removeTillSpace(): The function gets a pointer to a string and remove
-all the chars till the first blank space.*/
+/**
+ * removeTillSpace(): Removes characters until the first blank space from a string.
+ *
+ * @param s1 The string to remove characters from.
+ * @return The modified string.
+ */
 char* removeTillSpace(char *s1) {
     int count = 0;
     while(s1[count] != ' ') {
@@ -209,8 +249,13 @@ char* removeTillSpace(char *s1) {
     return s1; // return the pointer to the string
 }
 
-/*The function amountInString() gets a pointer to a string and char,
-and return the amount of times that the char is in the string.*/
+/**
+ * amountInString(): Counts the number of occurrences of a character in a string.
+ *
+ * @param s1 The string to search.
+ * @param ch The character to count.
+ * @return The number of occurrences of the character in the string.
+ */
 int amountInString(char *s1, char ch) {
   int count = 0;
   for(int i = 0; i < strlen(s1); i++) {
@@ -224,8 +269,12 @@ int amountInString(char *s1, char ch) {
 
 char register_str[4];
 
-/* getRegisterBainry(): This function gets a pointer to a string (name of register)
-and return a 4 chars array with the binary code of the register. */
+/**
+ * getRegisterBainry(): Converts a register name to its binary representation.
+ *
+ * @param s The register name.
+ * @return A 4-character array representing the binary code of the register.
+ */
 char* getRegisterBainry(char *s) {
 
     register_str[0] = '0';
@@ -266,7 +315,12 @@ char* getRegisterBainry(char *s) {
 
 }
 
-/* asciiToBinNumber(): This function gets a char and return the ascii number of the char. */
+/**
+ * asciiToBinNumber(): Converts an ASCII character to its binary representation.
+ *
+ * @param ch The ASCII character.
+ * @return The binary representation of the ASCII character.
+ */
 int asciiToBinNumber(char ch) {
     int ascii_num;
     if(ch == 'a') {ascii_num = 97;} if(ch == 'b') {ascii_num = 98;} if(ch == 'c') {ascii_num = 99;} if(ch == 'd') {ascii_num = 100;}

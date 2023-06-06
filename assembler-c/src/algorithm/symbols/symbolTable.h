@@ -2,7 +2,7 @@
 In this file: The symbol table for all the labels, and also some functions to handle with the symbolTable,
     like check if a label in the symbol table, check if a string is a label and more.
 
-author: Mikey Bar Yaacov Dunevich | Date: 21.8.2022
+author: Mikey Bar Yaacov Dunevich  
 ID: 215356981 */
 
 
