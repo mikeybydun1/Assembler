@@ -1,23 +1,36 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog, font
 from tkinter.colorchooser import askcolor
+from GUI.toolbar import OutputsToolBar
+from GUI.outputs import AssemblerOutputs
 
 
-class TextEditor(tk.Frame):
+class AssemblyEditor(tk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self._create_text_widget()
 
-        self.font_actual = {'family': 'Calibri', 'size': 12}
+        self.font_actual = {'family': 'Tahoma', 'size': 12}
         self.is_saved = True
         self.current_file_path = ''
 
+        self.outputs_enabled = False
+        self.toolbar = OutputsToolBar(self)
+
+        # Initialize toolbar and outputs classes
+        self.toolbar = OutputsToolBar(self)
+        self.outputs = AssemblerOutputs(self._text_widget, self.get_user_files_dir(), self)
+
     def _create_text_widget(self):
-        self._text_widget = tk.Text(self, wrap='word', undo=True, font=('Calibri', 12))
+        self._text_widget = tk.Text(self, wrap='word', undo=True, font=('Tahoma', 12))
         self._text_widget.pack(fill='both', expand=True)
         self.pack(fill='both', expand=True)
 
         self._text_widget.bind('<<Modified>>', self._set_unsaved)
+
+    def get_user_files_dir(self):
+        # This method needs to be updated to provide the correct path
+        return "D:/Desktop/Assembler/assembler-c/src/userFiles"
 
     def open_file(self):
         file_path = filedialog.askopenfilename(filetypes=(('Assembler files', '*.am'),))
@@ -29,7 +42,7 @@ class TextEditor(tk.Frame):
 
     def save_file(self):
         file_name = filedialog.asksaveasfilename(
-            initialdir='D:/Desktop/Assembler/assembler-c/src/userFiles',
+            initialdir=self.get_user_files_dir(),
             defaultextension='.am',
             filetypes=(('Assembler files', '*.am'),)
         )
@@ -68,4 +81,20 @@ class TextEditor(tk.Frame):
 
     def get_current_file_path(self):
         return self.current_file_path
+
+    def enable_outputs(self):
+        self.outputs_enabled = True
+        self.toolbar.enable_outputs()
+
+    def disable_outputs(self):
+        self.outputs_enabled = False
+        self.toolbar.disable_outputs()
+
+    def show_binary_output(self):
+        self.outputs.show_binary_output()
+
+    def show_base32_output(self):
+        self.outputs.show_base32_output()
+
+
 

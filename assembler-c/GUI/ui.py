@@ -2,9 +2,10 @@ import tkinter as tk
 from tkinter.colorchooser import askcolor
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
+
 class UI:
     BG_COLOR = 'white'
-    FONT = ("arial", 12)
+    FONT = ("Tahoma", 12)
 
     def _create_widget(self, widget_class, parent, **options):
         return widget_class(parent, bg=self.BG_COLOR, font=self.FONT, **options)

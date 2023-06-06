@@ -1,0 +1,9 @@
+--------- 💻SORCE ASSEMBLY CODE💻 ---------
+Line 0:  mov #4, r1
+
+--------- CODE SEGMENT (Binary) ---------
+Line 0:   0000001100
+Line 1:   0000010000
+Line 2:   0001000000
+
+--------- DATA SEGMENT (Binary) ---------

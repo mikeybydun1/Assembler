@@ -1,7 +1,7 @@
 OBJDIR = D:/Desktop/Assembler/assembler-c/src/gitignore
 
 a.exe: $(OBJDIR)/utilities.o $(OBJDIR)/preAssembler.o $(OBJDIR)/symbolTable.o $(OBJDIR)/firstRide.o $(OBJDIR)/secondRide.o $(OBJDIR)/utilRide2.o $(OBJDIR)/outputFiles.o $(OBJDIR)/assembler.o $(OBJDIR)/debugger.o $(OBJDIR)/dataUtils.o
-	gcc $^ -o a.exe
+	gcc $^ -o D:/Desktop/Assembler/assembler-c/server/a.exe
 
 $(OBJDIR)/utilities.o: D:/Desktop/Assembler/assembler-c/src/utils/generalUtils/utilities.c
 	gcc -c $< -o $@
