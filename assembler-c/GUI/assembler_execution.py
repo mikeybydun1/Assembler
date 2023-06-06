@@ -1,20 +1,20 @@
 import os
-import subprocess
+import pickle
 import threading
 import tkinter as tk
 from tkinter import ttk, messagebox
-import time
-from assembler_client import AssemblyClient
+from GUI.communication.assembler_client import AssemblyClient
 from tkinter.scrolledtext import ScrolledText
+from GUI.communication.encrypt_decrypt import decrypt_data
+from PIL import Image, ImageTk
 
 
 class AssemblerExecution(ttk.Button):
-    def __init__(self, parent, text_editor, makefile_path):
+    def __init__(self, parent, text_editor):
 
-        super().__init__(parent, text="Assembler", command=self.assemble)
+        super().__init__(parent, text="Run Assembler", command=self.assemble)
         self.parent = parent
         self.text_editor = text_editor
-        self.makefile_path = makefile_path
         self.progress_bar = None
         self.result_window = None
 
@@ -40,27 +40,6 @@ class AssemblerExecution(ttk.Button):
 
         threading.Thread(target=self._run_executable).start()
 
-    def _run_makefile(self):
-        os.chdir(os.path.dirname(self.makefile_path))
-        try:
-            process = subprocess.Popen(['mingw32-make', '-f', os.path.basename(self.makefile_path)],
-                                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            while True:
-                output = process.stdout.readline()
-                if output == b'' and process.poll() is not None:
-                    break
-                if output:
-                    print(output.decode('utf-8'))
-            rc = process.poll()
-            if rc == 0:
-                self._run_executable()
-        except subprocess.CalledProcessError as e:
-            print(f"Makefile execution failed: {e}")
-        finally:
-            time.sleep(2)
-            self.progress_bar.stop()
-            self.progress_bar.destroy()
-
     def _show_result_window(self, content):
         if self.result_window:
             self.result_window.destroy()
@@ -72,6 +51,38 @@ class AssemblerExecution(ttk.Button):
         text_widget.pack(fill="both", expand=True)
         text_widget.insert("1.0", content)
         text_widget.configure(state="disabled")
+
+    def show_success_message(self):
+
+        success_window = tk.Toplevel(self.parent)
+        success_window.title('Success!')
+        success_window.geometry('400x300+500+300')
+        success_window.configure(bg='#002955')
+
+        # Load an image using Pillow library and create PhotoImage object
+        image = Image.open("path_to_your_image")
+        photo = ImageTk.PhotoImage(image)
+        image_label = tk.Label(success_window, image=photo, bg='#002955')
+        image_label.image = photo  # Keep a reference
+        image_label.pack(pady=(20, 10))
+
+        # Message
+        success_label = tk.Label(success_window,
+                                 text='Server succeeded to assemble your code!\nNow you can look on the outputs files',
+                                 font=('Arial', 14, 'bold'), fg='white', bg='#002955', pady=20)
+
+        success_label.pack(fill='x')
+
+        # Decorative Frame
+        frame = tk.Frame(success_window, bg='#4CAF50')
+        frame.pack(fill='x')
+
+        # Button
+        ok_button = tk.Button(frame, text='OK', command=success_window.destroy, fg='#002955', bg='#4CAF50', padx=20,
+                              pady=10, font=('Arial', 12, 'bold'))
+        ok_button.pack(pady=(20, 10))
+
+        success_window.grab_set()
 
     def _run_executable(self):
         file_path = self.text_editor.get_current_file_path()
@@ -87,6 +98,24 @@ class AssemblerExecution(ttk.Button):
 
             # Receive the response from the server
             result = self.client.receive_data()
-            self._show_result_window(result.stdout)
 
-            print(f"Server response: {result}")
+            if result[1] is None:
+                print('Server failed to run the assembler on the given code.')
+                decrypted_result = pickle.loads(decrypt_data(result[0]))
+                self._show_result_window(decrypted_result.stdout)
+
+            else:
+
+                decrypt_outputs = pickle.loads(decrypt_data(result[1]))
+
+                ob_output = decrypt_outputs['ob_data']
+                bin_output = decrypt_outputs['bin_data']
+
+                print('Server succeeded to assemble your code! Now you can look on the outputs files')
+                self.text_editor.enable_outputs()
+                self.text_editor.outputs.binary_output_data = bin_output
+                self.text_editor.outputs.ob_output_data = ob_output
+                self.show_success_message()
+
+        self.progress_bar.stop()
+        self.progress_bar.destroy()

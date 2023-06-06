@@ -1,8 +1,8 @@
 import tkinter as tk
-from GUI.assembly_editor import AssemblyEditor
+from GUI.codeEditor.assembly_editor import AssemblyEditor
 from GUI.assembler_execution import AssemblerExecution
 import tkinter.font as font
-import socket
+from codeEditor.outputs import AssemblerOutputs
 
 
 class MainWindow(tk.Tk):
@@ -14,7 +14,7 @@ class MainWindow(tk.Tk):
     """
     def __init__(self):
         super().__init__()
-        self.title('Assembler Text Editor')
+        self.title('Assembler Code Editor')
 
         window_width = self.winfo_screenwidth() - 200
         window_height = self.winfo_screenheight() - 200
@@ -26,7 +26,13 @@ class MainWindow(tk.Tk):
         default_font = font.nametofont("TkDefaultFont")
         default_font.configure(family='Tahoma')
 
+        self.file_menu = None
+        self.edit_menu = None
+        self.outputs_menu = None
+
         self.text_editor = AssemblyEditor(self)
+        self.assembler_execution = AssemblerExecution(self, self.text_editor)
+
         self._create_menu()
 
     def _create_menu(self):
@@ -37,66 +43,64 @@ class MainWindow(tk.Tk):
 
         """
         menubar = tk.Menu(self, font=('Tahoma', 10))  # set font to Tahoma
-        file_menu = tk.Menu(menubar, tearoff=0, font=('Tahoma', 10))  # set font to Tahoma
-        file_menu.add_command(label="Open", command=self.text_editor.open_file)
-        file_menu.add_command(label="Save", command=self.text_editor.save_file)
-        file_menu.add_separator()
-        file_menu.add_command(label="Exit", command=self.quit)
-        menubar.add_cascade(label="File", menu=file_menu)
+        self.file_menu = tk.Menu(menubar, tearoff=0, font=('Tahoma', 10))  # set font to Tahoma
+        self.file_menu.add_command(label="Open", command=self.text_editor.open_file)
+        self.file_menu.add_command(label="Save", command=self.text_editor.save_file)
+        self.file_menu.add_separator()
+        self.file_menu.add_command(label="Exit", command=self.quit)
+        menubar.add_cascade(label="File", menu=self.file_menu)
 
-        edit_menu = tk.Menu(menubar, tearoff=0, font=('Tahoma', 10))  # set font to Tahoma
-        edit_menu.add_command(label="Change Font", command=self.text_editor.change_font)
-        edit_menu.add_command(label="Change Font Size", command=self.text_editor.change_font_size)
-        edit_menu.add_command(label="Change Font Color", command=self.text_editor.change_font_color)
-        menubar.add_cascade(label="Edit", menu=edit_menu)
+        self.edit_menu = tk.Menu(menubar, tearoff=0, font=('Tahoma', 10))  # set font to Tahoma
+        self.edit_menu.add_command(label="Change Font", command=self.text_editor.change_font)
+        self.edit_menu.add_command(label="Change Font Size", command=self.text_editor.change_font_size)
+        self.edit_menu.add_command(label="Change Font Color", command=self.text_editor.change_font_color)
+        menubar.add_cascade(label="Edit", menu=self.edit_menu)
 
-        self.outputs_menu = tk.Menu(menubar, tearoff=0, font=('Tahoma', 10))  # set font to Tahoma
+        self.outputs_menu = tk.Menu(menubar, tearoff=0, font=('Tahoma', 10))
         self.outputs_menu.add_command(label="Binary Outputs", command=self.text_editor.show_binary_output,
                                       state="disabled")
         self.outputs_menu.add_command(label="Base32 Outputs", command=self.text_editor.show_base32_output,
                                       state="disabled")
         menubar.add_cascade(label="Outputs", menu=self.outputs_menu)
-
-        assembler_execution = AssemblerExecution(self, self.text_editor, 'D:/Desktop/Assembler/assembler-c/src/makefile.mk')
-        assembler_execution.pack()
+        self.assembler_execution.pack()
 
         self.config(menu=menubar)
 
-    def show_binary_output(self):
-        """
-        Show the binary outputs in the assembly editor.
-
-        This method is called when the "Binary Outputs" menu option is selected.
-
-        """
-        self.text_editor.show_binary_output()
-
-    def show_base32_output(self):
-        """
-        Show the Base32 outputs in the assembly editor.
-
-        This method is called when the "Base32 Outputs" menu option is selected.
-
-        """
-        self.text_editor.show_base32_output()
-
-    def enable_outputs(self):
-        """
-        Enable the outputs menu options.
-
-        This method is called when the assembly execution is successful.
-
-        """
-        self.outputs_menu.entryconfig("Binary Outputs", state="normal")
-        self.outputs_menu.entryconfig("Base32 Outputs", state="normal")
-
-    def disable_outputs(self):
-        """
-        Disable the outputs menu options.
-
-        This method is called when the assembly execution fails.
-
-        """
-        self.outputs_menu.entryconfig("Binary Outputs", state="disabled")
-        self.outputs_menu.entryconfig("Base32 Outputs", state="disabled")
+    # def show_binary_output(self):
+    #     """
+    #     Show the binary outputs in the assembly editor.
+    #
+    #     This method is called when the "Binary Outputs" menu option is selected.
+    #
+    #     """
+    #     self.text_editor.show_binary_output()
+    #
+    # def show_base32_output(self):
+    #     """
+    #     Show the Base32 outputs in the assembly editor.
+    #
+    #     This method is called when the "Base32 Outputs" menu option is selected.
+    #
+    #     """
+    #     self.text_editor.show_base32_output()
+    #
+    # def enable_outputs(self):
+    #     """
+    #     Enable the outputs menu options.
+    #
+    #     This method is called when the assembly execution is successful.
+    #
+    #     """
+    #     self.outputs_menu.entryconfig("Binary Outputs", state="normal")
+    #     self.outputs_menu.entryconfig("Base32 Outputs", state="normal")
+    #
+    # def disable_outputs(self):
+    #     """
+    #     Disable the outputs menu options.
+    #
+    #     This method is called when the assembly execution fails.
+    #
+    #     """
+    #     self.outputs_menu.entryconfig("Binary Outputs", state="disabled")
+    #     self.outputs_menu.entryconfig("Base32 Outputs", state="disabled")
 

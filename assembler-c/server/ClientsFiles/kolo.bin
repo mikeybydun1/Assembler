@@ -1,0 +1,12 @@
+--------- 💻SORCE ASSEMBLY CODE💻 ---------
+Line 0:  mov #3, r1
+Line 1:  cmp r1,r1
+
+--------- CODE SEGMENT (Binary) ---------
+Line 0:   0000001100
+Line 1:   0000001100
+Line 2:   0001000000
+Line 3:   0001111100
+Line 4:   0001000100
+
+--------- DATA SEGMENT (Binary) ---------

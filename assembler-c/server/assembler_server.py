@@ -2,7 +2,7 @@ import socket
 import pickle
 import subprocess
 
-from GUI.encrypt_decrypt import decrypt_data
+from GUI.communication.encrypt_decrypt import decrypt_data, encrypt_data
 import os
 
 
@@ -14,7 +14,7 @@ class AssemblyServer:
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(1)
         self.makefile_path = 'D:/Desktop/Assembler/assembler-c/src/makefile.mk'
-        self.server_working_path = 'D:/Desktop/Assembler/assembler-c/server'
+        self.server_working_path = 'D:/Desktop/Assembler/assembler-c/server/ClientsFiles'
 
     def start(self):
         while True:
@@ -33,7 +33,7 @@ class AssemblyServer:
             file_name = decrypted_data.get("file_name")
             file_content = decrypted_data.get("file_content")
 
-            file_path = f"D:/Desktop/Assembler/assembler-c/server/{file_name}.am"
+            file_path = f'{self.server_working_path}/{file_name}.am'
             with open(file_path, "w") as file:
                 file.write(file_content)
 
@@ -63,7 +63,30 @@ class AssemblyServer:
         result = subprocess.run(["C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe", "-Command",
                                  run_assembler_command], cwd=self.server_working_path, check=True, capture_output=True,
                                 text=True)
-        return result
+
+        if 'leagel' in result.stdout:
+
+            ob_file_path = os.path.join(self.server_working_path, file_name + ".ob")
+            bin_file_path = os.path.join(self.server_working_path, file_name + ".bin")
+
+            outputs_file_data = {}
+
+            if os.path.isfile(ob_file_path):
+                with open(ob_file_path, "r") as ob_file:
+                    outputs_file_data["ob_data"] = ob_file.read()
+
+            if os.path.isfile(bin_file_path):
+                with open(bin_file_path, "rb") as bin_file:
+                    outputs_file_data["bin_data"] = bin_file.read()
+
+            result_encrypt = encrypt_data(pickle.dumps(result))
+            output_data_encrypt = encrypt_data(pickle.dumps(outputs_file_data))
+
+            return result_encrypt, output_data_encrypt
+
+        else:
+            result_encrypt = encrypt_data(pickle.dumps(result))
+            return result_encrypt, None
 
 
 if __name__ == "__main__":

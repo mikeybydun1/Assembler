@@ -1,0 +1,42 @@
+--------- 💻SORCE ASSEMBLY CODE💻 ---------
+Line 0:  MAIN:	mov #0, r0
+Line 1:  mov DATA1.1, r1
+Line 2:  mov STRUCT.1, r2
+Line 3:  LOOP:	cmp r1, r1
+Line 4:  DATA1: 	.data 2,7,-5
+Line 5:  DATA2:	.data 10,8,1
+Line 6:  STR:	.string Ajgfg
+Line 7:  STRUCT:	.struct Hj,5
+
+
+--------- CODE SEGMENT (Binary) ---------
+Line 0:   0000001100
+Line 1:   0000000000
+Line 2:   0000000000
+Line 3:   0000101100
+Line 4:   0111001010
+Line 5:   0000000100
+Line 6:   0001000000
+Line 7:   0000101100
+Line 8:   0111110010
+Line 9:   0000000100
+Line 10:  0010000000
+Line 11:  0001111100
+Line 12:  0001000100
+Line 13:  0000000000
+
+--------- DATA SEGMENT (Binary) ---------
+Line 0:   0000000010
+Line 1:   0000000111
+Line 2:   1111111011
+Line 3:   0000001010
+Line 4:   0000001000
+Line 5:   0000000001
+Line 6:   0001101010
+Line 7:   0001100111
+Line 8:   0001100110
+Line 9:   0000000000
+Line 10:  0000000000
+Line 11:  0000000101
+Line 12:  0000000000
+Line 13:  0000000101
